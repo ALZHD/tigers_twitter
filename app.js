@@ -2,6 +2,7 @@ const express = require('express');
 require('dotenv').config(); // для того, чтобы работало обращение к process.env
 const path = require('path');
 const indexRouter = require('./routes/index.router');
+const postsRouter = require('./routes/posts.router');
 
 const app = express();
 
@@ -12,6 +13,8 @@ app.set('view engine', 'hbs'); // задаём движок отображени
 app.use(express.static(path.join(process.env.PWD, 'public'))); // раздача статики
 app.use(express.urlencoded({ extended: true })); // чтобы парсить body
 app.use(express.json()); // чтобы парсить json
+
 app.use('/', indexRouter);
+app.use('/posts', postsRouter);
 
 app.listen(PORT, () => console.log(`Server has been started on port ${PORT}`));

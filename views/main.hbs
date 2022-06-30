@@ -1,7 +1,8 @@
-<form>
+<form name='postform'>
   <div class='mb-3'>
     <label for='title' class='form-label'>Title</label>
     <input
+      name='title'
       type='text'
       class='form-control'
       id='title'
@@ -11,6 +12,7 @@
   <div class='mb-3'>
     <label for='title' class='form-label'>Image</label>
     <input
+      name='img'
       type='text'
       class='form-control'
       id='img'
@@ -19,3 +21,21 @@
   </div>
   <button type='submit' class='btn btn-primary'>Submit</button>
 </form>
+
+<div data-container class='row'>
+  {{#each allPosts}}
+    <div data-col class='col'>
+      <div class='card' style='width: 18rem;'>
+        <img src={{this.img}} class='card-img-top' alt={{this.id}} />
+        <div class='card-body'>
+          <h5 class='card-title'>{{this.title}}</h5>
+          <button
+            data-bla={{this.id}}
+            type='button'
+            class='btn btn-danger'
+          >Delete</button>
+        </div>
+      </div>
+    </div>
+  {{/each}}
+</div>
