@@ -20,7 +20,8 @@ function createCard(obj) {
 
 postForm.addEventListener('submit', async (e) => {
   e.preventDefault();
-  const allFromForm = Object.fromEntries(new FormData(postForm));
+  const allFromForm = Object.fromEntries(new FormData(postForm)); // собрали форму в объект
+  // {name:value} -> {title:...,img:...}
   const response = await fetch('/posts', {
     method: 'post',
     headers: {
@@ -29,7 +30,7 @@ postForm.addEventListener('submit', async (e) => {
     body: JSON.stringify(allFromForm),
   });
   if (response.ok) {
-    const data = await response.json();
+    const data = await response.json(); // {newPost:{title:...,img:...,id:...,author:...}}
     const container = document.querySelector('[data-container]');
     container.insertAdjacentHTML('afterbegin', createCard(data.newPost));
     postForm.reset();
@@ -43,6 +44,9 @@ postContainer.addEventListener('click', async (e) => {
     if (response.ok) {
       const currCard = e.target.closest('[data-col]');
       currCard.remove();
-    } 
+    } else {
+      const data = await response.json();
+      alert(data.message);
+    }
   }
 });
