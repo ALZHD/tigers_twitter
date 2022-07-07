@@ -10,8 +10,12 @@ router.post('/', async (req, res) => {
 });
 
 router.get('/:id/delete', checkAuthor, async (req, res) => {
-  await Post.destroy({ where: { id: req.params.id } });
-  res.sendStatus(200);
+  try {
+    await Post.destroy({ where: { id: req.params.id } });
+    res.sendStatus(200);
+  } catch (e) {
+    res.sendStatus(500);
+  }
 });
 
 module.exports = router;

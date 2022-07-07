@@ -40,13 +40,17 @@ postForm.addEventListener('submit', async (e) => {
 const postContainer = document.querySelector('[data-container]');
 postContainer.addEventListener('click', async (e) => {
   if (e.target.type === 'button') {
-    const response = await fetch(`/posts/${e.target.dataset.bla}/delete`);
-    if (response.ok) {
-      const currCard = e.target.closest('[data-col]');
-      currCard.remove();
-    } else {
-      const data = await response.json();
-      alert(data.message);
+    try {
+      const response = await fetch(`/posts/${e.target.dataset.bla}/delete`);
+      if (response.ok) {
+        const currCard = e.target.closest('[data-col]');
+        currCard.remove();
+      } else {
+        const data = await response.json();
+        alert(data.message);
+      }
+    } catch (error) {
+      alert(error.message);
     }
   }
 });
